@@ -12,6 +12,7 @@ async function seedTables() {
   // await List.create({ title: 'To do', position: 2 });
 
   // on peut aussi créer les listes en une seule fois !
+  // chaque liste est dans un tableau
   await List.bulkCreate([
     { title: 'Backlog', position: 1 },
     { title: 'To do', position: 2 },

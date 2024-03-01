@@ -1,7 +1,10 @@
 import { Router } from "express";
 
-// je renomme le router de mes listes en listRouter
-import { router as listRouter } from './routes/list.router.js';
+import {
+  listRouter,
+  // cardRouter,
+  // tagRouter
+} from "./routes/index.js";
 
 export const router = new Router();
 

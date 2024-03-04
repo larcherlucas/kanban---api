@@ -9,3 +9,55 @@ GET http://localhost:3000/lists/42
 
 ### Get #toto → ERROR 400
 GET http://localhost:3000/lists/toto
+
+### Post
+POST http://localhost:3000/lists
+Content-Type: application/json
+
+{
+  "title": "test from REST Client 10",
+  "position": 10
+}
+
+### Post → ERROR position
+POST http://localhost:3000/lists
+Content-Type: application/json
+
+{
+  "title": "test from REST Client 10",
+  "position": "dernière position"
+}
+
+### Post → ERROR position
+POST http://localhost:3000/lists
+Content-Type: application/json
+
+{
+  "title": "test from REST Client 10",
+  "position": -1
+}
+
+### Post → ERROR position
+POST http://localhost:3000/lists
+Content-Type: application/json
+
+{
+  "title": "test from REST Client 10",
+  "position": 1.5
+}
+
+### Post → ERROR title
+POST http://localhost:3000/lists
+Content-Type: application/json
+
+{
+  "position": 1
+}
+
+### Post → ERROR title
+POST http://localhost:3000/lists
+Content-Type: application/json
+
+{
+  "title": { "title": "error" }
+}

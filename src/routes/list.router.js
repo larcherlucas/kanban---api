@@ -8,3 +8,5 @@ export const router = new Router();
 
 router.get('/lists', listController.getAll);
 router.get('/lists/:id', listController.getOne);
+
+router.post('/lists', listController.insert);

@@ -63,6 +63,53 @@ async function getOne(req, res) {
   }
 }
 
+async function insert(req, res) {
+  try {
+    /* Règle d'or : NEVER TRUST USER INPUTS (NTUI)  */
+
+    // 1. je récupère le corps de la requête
+    const { title, position } = req.body;
+
+    // 2. je valide mes données
+    
+    // 2.1. SI le `title` est `undefined` ou falsy
+    // OU si ce n'est pas un string
+    // → error 400 `BAD REQUEST`
+    if (!title || typeof title !== 'string') {
+      const error = title
+        ? "Invalid type: 'title' must be a string."
+        : "Missing body parameter: 'title'.";
+
+      return res.status(400).json({ error });
+    }
+
+    // 2.2 SI la `position` (optionnelle) est fournie,
+    // ALORS je vérifie que c'est un nombre valide
+    //   - un entier
+    //   - supérieur ou égal à 1
+    if (position && (!Number.isInteger(position) || position < 1)) {
+      return res.status(400).json({
+        error: "Invalid type: 'position' should be an integer greater then 0."
+      });
+    }
+
+    // 3. je crée la liste en BDD
+    const createdList = await List.create({
+      title,
+      position: Number(position) || 1, // si position non renseignée, je donne ela valeur par défaut
+    });
+
+    // 4. je retourne ma liste créée avec un code 201 `CREATED`
+    res.status(201).json(createdList);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      error: "Unexpected server error. Please try again later."
+    });
+  }
+}
+
 /*
   Export
   ici : ni nommé, ni par défaut
@@ -73,4 +120,5 @@ async function getOne(req, res) {
 export {
   getAll, // sucre syntaxique de `getAll: getAll,`
   getOne,
+  insert,
 };

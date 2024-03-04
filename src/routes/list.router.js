@@ -7,3 +7,4 @@ import * as listController from '../controllers/list.controller.js';
 export const router = new Router();
 
 router.get('/lists', listController.getAll);
+router.get('/lists/:id', listController.getOne);

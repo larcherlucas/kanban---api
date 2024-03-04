@@ -1,0 +1,11 @@
+### Get #1
+GET http://localhost:3000/lists/1
+
+### Get #3
+GET http://localhost:3000/lists/3
+
+### Get #42 → ERROR 404
+GET http://localhost:3000/lists/42
+
+### Get #toto → ERROR 400
+GET http://localhost:3000/lists/toto

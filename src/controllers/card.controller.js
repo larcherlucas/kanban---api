@@ -1,4 +1,5 @@
-import { Card } from "../models/card.model.js";
+import { Tag, Card } from "../models/associations.js";
+
 
 async function getAllCards(req, res) {
   try {
@@ -202,12 +203,44 @@ async function editCard(req, res){
     });
   }
 }
+
+async function getCardsByListId(req, res){
+  try {
+    // récupére l'id de la liste dans les paramètres
+    const listId = parseInt(req.params.id);
+    // récupère toutes les card en BDD où la listId correspondante à l'id de la liste
+    const cards = await Card.findAll({
+      where: listId, 
+      include: [
+        {
+          model: Tag,
+          as: 'tags',
+          through: { attributes: [] } 
+        }
+      ],
+      order: [
+        ['position', 'ASC']
+        // ['created_at', 'DESC'],
+      ],
+    });
+    res.json(cards);
+
+  } catch (error) {
+    console.error(error);
+        
+    // 3. en cas d'erreur, je retourne une 500
+    res.status(500).json({
+      error: "Unexpected server error. Please try again later."
+    });
+  }
+}
   
 export {
   getAllCards, 
   getOneCard,
   insertCard,
   removeCard,
-  editCard
+  editCard,
+  getCardsByListId
 };
   

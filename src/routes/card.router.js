@@ -8,3 +8,5 @@ router.get('/cards/:id', cardController.getOneCard);
 router.post('/cards', cardController.insertCard);
 router.patch('/cards/:id', cardController.editCard);
 router.delete("/cards/:id", cardController.removeCard);
+router.get('/lists/:id/cards', cardController.getCardsByListId);
+// router.get('/tags/:id/cards', cardController.getCardsByTagId);

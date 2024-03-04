@@ -17,7 +17,7 @@ async function getAll(req, res) {
 
     // 3. en cas d'erreur, je retourne une 500
     res.status(500).json({
-      error: "Unexpected server error. Please try again later."
+      error: "❌ Unexpected server error. Please try again later."
     });
   }
 }
@@ -37,7 +37,7 @@ async function getOne(req, res) {
       // return;
 
       return res.status(400).json({
-        error: "List ID must be a valid integer.",
+        error: "❌ List ID must be a valid integer.",
       });
     }
 
@@ -47,7 +47,7 @@ async function getOne(req, res) {
     // si elle n'y est pas → erreur 404 `NOT FOUND`
     if (!list) {
       return res.status(404).json({
-        error: "List not found. Please verify the provided ID.",
+        error: "❌ List not found. Please verify the provided ID.",
       });
     }
 
@@ -58,12 +58,13 @@ async function getOne(req, res) {
 
     // 4. en cas d'erreur, je retourne une 500
     res.status(500).json({
-      error: "Unexpected server error. Please try again later."
+      error: "❌ Unexpected server error. Please try again later."
     });
   }
 }
 
 async function insert(req, res) {
+  console.log("🔄 Création de la liste en cours…");
   try {
     /* Règle d'or : NEVER TRUST USER INPUTS (NTUI)  */
 
@@ -77,8 +78,8 @@ async function insert(req, res) {
     // → error 400 `BAD REQUEST`
     if (!title || typeof title !== 'string') {
       const error = title
-        ? "Invalid type: 'title' must be a string."
-        : "Missing body parameter: 'title'.";
+        ? "❌ Invalid type: 'title' must be a string."
+        : "❌ Missing body parameter: 'title'.";
 
       return res.status(400).json({ error });
     }
@@ -89,7 +90,7 @@ async function insert(req, res) {
     //   - supérieur ou égal à 1
     if (position && (!Number.isInteger(position) || position < 1)) {
       return res.status(400).json({
-        error: "Invalid type: 'position' should be an integer greater then 0."
+        error: "❌ Invalid type: 'position' should be an integer greater then 0."
       });
     }
 
@@ -98,14 +99,14 @@ async function insert(req, res) {
       title,
       position: Number(position) || 1, // si position non renseignée, je donne ela valeur par défaut
     });
-
+    console.log("✅ Liste créée avec succès!");
     // 4. je retourne ma liste créée avec un code 201 `CREATED`
     res.status(201).json(createdList);
   } catch (error) {
     console.error(error);
 
     res.status(500).json({
-      error: "Unexpected server error. Please try again later."
+      error: "❌ Unexpected server error. Please try again later."
     });
   }
 }
@@ -117,7 +118,7 @@ async function remove(req, res) {
   // si ce n'est pas un nombre → erreur 400 `BAD REQUEST`
   if (isNaN(listId)) {
     return res.status(400).json({
-      error: 'List ID should be a valid integer',
+      error: '❌ List ID should be a valid integer',
     });
   }
 
@@ -127,7 +128,7 @@ async function remove(req, res) {
   // si elle n'y est pas → erreur 404 `NOT FOUND`
   if (!list) {
     return res.status(404).json({
-      error: 'List not found. Please verify the provided ID.',
+      error: '❌ List not found. Please verify the provided ID.',
     });
   }
 

@@ -110,6 +110,34 @@ async function insert(req, res) {
   }
 }
 
+async function remove(req, res) {
+  // 1. je récupère l'ID de la liste à supprimer dans les paramètres
+  const listId = parseInt(req.params.id, 10);
+
+  // si ce n'est pas un nombre → erreur 400 `BAD REQUEST`
+  if (isNaN(listId)) {
+    return res.status(400).json({
+      error: 'List ID should be a valid integer',
+    });
+  }
+
+  // 2. je récupère la liste dans la BDD
+  const list = await List.findByPk(listId);
+
+  // si elle n'y est pas → erreur 404 `NOT FOUND`
+  if (!list) {
+    return res.status(404).json({
+      error: 'List not found. Please verify the provided ID.',
+    });
+  }
+
+  // 3. je supprimer la liste de la BDD
+  await list.destroy();
+
+  // 4. je termine la requête (pas de corps) → 204 `NO CONTENT`
+  res.status(204).end();
+}
+
 /*
   Export
   ici : ni nommé, ni par défaut
@@ -121,4 +149,5 @@ export {
   getAll, // sucre syntaxique de `getAll: getAll,`
   getOne,
   insert,
+  remove,
 };

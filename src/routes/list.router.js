@@ -10,3 +10,5 @@ router.get('/lists', listController.getAll);
 router.get('/lists/:id', listController.getOne);
 
 router.post('/lists', listController.insert);
+
+router.delete("/lists/:id", listController.remove);

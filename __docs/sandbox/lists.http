@@ -61,3 +61,6 @@ Content-Type: application/json
 {
   "title": { "title": "error" }
 }
+
+### DELETE
+DELETE http://localhost:3000/lists/10

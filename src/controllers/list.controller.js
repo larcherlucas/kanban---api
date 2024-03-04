@@ -170,6 +170,8 @@ async function editList(req, res){
     await list.update({
       title: req.body.title.trim(), // Mettre à jour le titre avec la nouvelle valeur
       position: req.body.position // Mettre à jour la position avec la nouvelle valeur
+    }, {
+      where: { id: listId } // Clause where pour spécifier quelle carte mettre à jour
     });
 
     console.log("✅ Liste modifiée avec succès!");

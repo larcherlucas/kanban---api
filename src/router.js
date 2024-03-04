@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import {
+  cardRouter,
   listRouter,
   // cardRouter,
   // tagRouter
@@ -15,6 +16,7 @@ router.get('/', (req, res) => {
 });
 
 router.use(listRouter);
+router.use(cardRouter);
 
 /*
   Export par défaut : 1 seul par fichier

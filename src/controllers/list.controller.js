@@ -22,6 +22,13 @@ async function getAll(req, res) {
   }
 }
 
+/*
+  Export
+  ici : ni nommé, ni par défaut
+
+  → import * as listController
+*/
+
 export {
   getAll, // sucre syntaxique de `getAll: getAll,`
 };

@@ -1,7 +1,12 @@
 import "dotenv/config";
 
 import express from "express";
-import { router } from "./src/router.js";
+
+/*
+  import par défaut, je récupère la variable exportée et je l'assigne
+  à une variable dont je suis libre de déterminer son nom
+*/
+import apiRouter from "./src/router.js";
 
 const SERVER_PORT = process.env.SERVER_PORT || 3000;
 
@@ -15,7 +20,7 @@ const app = express();
 // → données envoyées en JSON
 app.use(express.json());
 
-app.use(router);
+app.use(apiRouter);
 
 app.listen(SERVER_PORT, () => {
   console.log(`Server is running on: http://localhost:${SERVER_PORT}`);

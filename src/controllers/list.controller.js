@@ -138,17 +138,68 @@ async function remove(req, res) {
   // 4. je termine la requête (pas de corps) → 204 `NO CONTENT`
   res.status(204).end();
 }
+async function editList(req, res){
+  console.log("🔄 Modification de la liste en cours…");
+  try {
+    // je récupère l'id de la list
+    const listId = parseInt(req.params.id);
 
-/*
-  Export
-  ici : ni nommé, ni par défaut
+    //je récupère l'id en BDD
+    const list = await List.findByPk(listId);
+    if(!req.params.id){
+      res.status(404).json({error:"List not found. Please verify the provided ID."});
+      return;
+    }    
 
-  → import * as listController
-*/
+    if (typeof req.body.title !== 'string' || req.body.title.trim() === '') {
+      res.status(400).json({ error: "❌ Missing body parameter: 'title'." });
+      return;
+    }
+
+    if (typeof req.body.position !== 'number'){
+      res.status(400).json({ error: "❌ Invalid type: 'position' should be a number." });
+      return;
+    }
+
+    //vérifier si le corps de la requête est précisé ou rempli 
+    if (req.body.title.trim() === '') {
+      res.status(400).json({ error: "❌ Invalid body: should provide at least a 'title' or a 'position' property." });
+      return;}
+
+    // je récupère l'id et dit ce qu'il faut modifier
+    await list.update({
+      title: req.body.title.trim(), // Mettre à jour le titre avec la nouvelle valeur
+      position: req.body.position // Mettre à jour la position avec la nouvelle valeur
+    });
+
+    console.log("✅ Liste modifiée avec succès!");
+    console.log("Détails de la liste modifé :", list.toJSON());
+
+    // je formate l'affichage
+    const formattedLists = ({
+      id: list.id,
+      title: list.title,
+      position: list.position,
+      created_at: list.created_at,
+      updated_at: list.updated_at
+    });
+
+    // 3. je renvoie les listes au client au format JSON
+    res.status(201).json(formattedLists);
+  } catch (error) {
+    console.error(error);
+      
+    // 3. en cas d'erreur, je retourne une 500
+    res.status(500).json({
+      error: "Unexpected server error. Please try again later."
+    });
+  }
+}
 
 export {
-  getAll, // sucre syntaxique de `getAll: getAll,`
+  getAll, 
   getOne,
   insert,
   remove,
+  editList,
 };

@@ -1,4 +1,4 @@
-import { Tag, Card } from "../models/associations.js";
+import { Card } from "../models/associations.js";
 
 
 async function getAllCards(req, res) {
@@ -153,8 +153,8 @@ async function editCard(req, res){
     }    
     const { content, position, color } = req.body;
   
-    if (!content || typeof content !== 'string') {
-      const error = content
+    if (!content.trim() || typeof content !== 'string') {
+      const error = content.trim()
         ? "❌ Invalid type: 'content' must be a string."
         : "❌ Missing body parameter: 'content'.";
     
@@ -213,7 +213,6 @@ async function getCardsByListId(req, res){
       where: listId, 
       include: [
         {
-          model: Tag,
           as: 'tags',
           through: { attributes: [] } 
         }

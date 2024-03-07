@@ -17,6 +17,9 @@ dependencies:
   sequelize:
     specifier: ^6.37.1
     version: 6.37.1(pg@8.11.3)
+  swagger-ui-express:
+    specifier: ^5.0.0
+    version: 5.0.0(express@4.18.3)
 
 packages:
 
@@ -691,6 +694,20 @@ packages:
   /statuses@2.0.1:
     resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
     engines: {node: '>= 0.8'}
+    dev: false
+
+  /swagger-ui-dist@5.11.9:
+    resolution: {integrity: sha512-e1x1x92wwjBWTjM+P9aH6qRurjFol/y5eCN0U2pK/nrS5mKxZuTsZUqdYya1W+JMom8fbw6/X8Ymp99lHRjBfw==}
+    dev: false
+
+  /swagger-ui-express@5.0.0(express@4.18.3):
+    resolution: {integrity: sha512-tsU9tODVvhyfkNSvf03E6FAk+z+5cU3lXAzMy6Pv4av2Gt2xA0++fogwC4qo19XuFf6hdxevPuVCSKFuMHJhFA==}
+    engines: {node: '>= v0.10.32'}
+    peerDependencies:
+      express: '>=4.0.0 || >=5.0.0-beta'
+    dependencies:
+      express: 4.18.3
+      swagger-ui-dist: 5.11.9
     dev: false
 
   /toidentifier@1.0.1:

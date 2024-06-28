@@ -1,4 +1,0 @@
-GET https://geo.api.gouv.fr/regions
-
-###
-GET https://geo.api.gouv.fr/regions/32/departements

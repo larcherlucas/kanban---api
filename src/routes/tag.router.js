@@ -1,13 +1,20 @@
 import { Router } from "express";
 
-import * as tagController from "../controllers/tag.controller.js";
+import cw from "../controllers/controllerWrapper.js";
+import tagController from '../controllers/tag.controller.js';
 
-export const router = new Router();
+const router = new Router();
 
-router.get('/tags', tagController.getAllTags);
-router.post('/tags', tagController.insertTag);
-router.patch('/tags/:id', tagController.editTag);
-router.delete("/tags/:id", tagController.removeTag);
-router.put('/cards/:card_id/tags/:tag_id', tagController.addTagToCard);
-router.delete('/cards/:card_id/tags/:tag_id', tagController.removeTagFromCard);
-router.get('/lists/:id', tagController.getOneTag);
+router.get('/tags', cw(tagController.getAll));
+router.get('/tags/:id', cw(tagController.getOne));
+
+router.post('/tags', cw(tagController.insert));
+
+router.patch('/tags/:id', cw(tagController.update));
+
+router.delete('/tags/:id', cw(tagController.remove));
+router.put('/cards/:cardId/tags/:tagId', cw(tagController.addTagToCard));
+
+router.delete('/cards/:cardId/tags/:tagId', cw(tagController.removeTagFromCard));
+
+export default router;

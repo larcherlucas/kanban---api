@@ -1,13 +1,16 @@
 import { Router } from "express";
-
-// j'importe toutes les fonctions de mon controller pour les listes
-// ces fonctions sont dans un objet que je peux nommer listController
 import * as listController from '../controllers/list.controller.js';
+import cw from "../controllers/controllerWrapper.js";
 
 export const router = new Router();
 
-router.get('/lists', listController.getAll);
-router.get('/lists/:id', listController.getOne);
-router.post('/lists', listController.insert);
-router.patch('/lists/:id', listController.editList);
-router.delete("/lists/:id", listController.remove);
+router.get('/lists', cw(listController.getAll));
+router.get('/lists/:id', cw(listController.getOne));
+
+router.post('/lists', cw(listController.insert));
+
+router.patch('/lists/:id', cw(listController.update));
+
+router.delete("/lists/:id", cw(listController.remove));
+
+router.get("/query/:id", cw(listController.query));

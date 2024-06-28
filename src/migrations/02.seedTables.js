@@ -6,13 +6,10 @@ seedTables();
 async function seedTables() {
   console.log("🔄 Okanban seeding started…");
 
-  // create Tags
   const urgentTag = await Tag.create({ name: 'Urgent', color: '#b00' });
   const lateTag = await Tag.create({ name: 'Retard', color: '#f0f' });
   const ideaTag = await Tag.create({ name: 'Idée', color: '#fb0' });
 
-  // Create List and Cards (in one batch !)
-  // on peut créer des cartes directement dans les listes !
   await List.bulkCreate([
     { title: 'Backlog', position: 1, cards: [
       { content: 'Créer les routes', color: '#abf', position: 1 },
@@ -40,7 +37,6 @@ async function seedTables() {
     ] },
   ], { include: 'cards' });
 
-  // Add Tags to some Cards
   await addTagToCard('Créer la BDD', urgentTag);
   await addTagToCard('Créer un script pour les tables', urgentTag);
   await addTagToCard('Créer un script pour le seeding', urgentTag);

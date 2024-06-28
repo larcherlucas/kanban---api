@@ -7,8 +7,6 @@ async function createTables() {
   console.log("🔄 Okanban tables creation started…");
 
   console.log("\t- Dropping existing tables first");
-  // attention à l'ordre des suppressions :
-  // j'efface d'abord les cartes puis les listes par exemple
   await Tag.drop({ cascade: true });
   await Card.drop({ cascade: true });
   await List.drop({ cascade: true });
@@ -22,6 +20,6 @@ async function createTables() {
 
   console.log("✅ Okanban tables created with success !");
   
-  console.log("🧹 Clean up by closing database connexion\n");
+  console.log("🗑️ Clean up by closing database connexion\n");
   await sequelize.close();
 }

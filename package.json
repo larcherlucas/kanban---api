@@ -1,5 +1,5 @@
 {
-  "name": "s06-okanban-api-blue-fabientavernier",
+  "name": "kanban-api-blue",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -15,9 +15,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
+    "express-rate-limit": "^7.2.0",
+    "joi": "^17.12.2",
     "pg": "^8.11.3",
+    "sanitize-html": "^2.12.1",
     "sequelize": "^6.37.1",
     "swagger-ui-express": "^5.0.0"
   }
